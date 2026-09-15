@@ -1,4 +1,7 @@
 {
+  "distribution": {
+    "require_eula": false
+  },
   "announcement_notification_service_first_run_time": "13353214660983306",
   "browser": {
     "custom_chrome_frame": false,
