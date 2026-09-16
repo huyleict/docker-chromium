@@ -1,0 +1,2 @@
+#!/bin/sh
+[ -n "${XRDP_PASSWORD:-${VNC_PASSWORD:-}}" ] && echo false || echo true
