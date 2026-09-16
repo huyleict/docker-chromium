@@ -3,10 +3,10 @@
 set -eu
 
 mkdir -p /config/.config/fcitx5
-if [ ! -f /config/.config/fcitx5/profile ]; then
-    cat > /config/.config/fcitx5/profile <<'PROFILE'
+cat > /config/.config/fcitx5/profile <<'PROFILE'
 [Groups/0]
 Name=Default
+Default Layout=us
 DefaultIM=unikey
 
 [Groups/0/Items/0]
@@ -20,4 +20,3 @@ Layout=
 [GroupOrder]
 0=Default
 PROFILE
-fi
