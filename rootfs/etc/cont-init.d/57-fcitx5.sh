@@ -2,7 +2,13 @@
 
 set -eu
 
-mkdir -p /config/.config/fcitx5
+mkdir -p /config/.config/fcitx5/conf
+
+cat > /config/.config/fcitx5/conf/unikey.conf <<'CONF'
+[General]
+InputMethod=UkTelex
+OutputCharset=XUTF8
+CONF
 cat > /config/.config/fcitx5/profile <<'PROFILE'
 [Groups/0]
 Name=Default
