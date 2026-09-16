@@ -1,4 +1,6 @@
 #!/bin/sh
 
 set -eu
+
+export XDG_CONFIG_HOME=/config/.config
 exec dbus-run-session -- fcitx5 -D --replace
