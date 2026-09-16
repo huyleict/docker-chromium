@@ -38,6 +38,10 @@ RUN \
     add-pkg \
         socat \
         xrdp \
+        fcitx5 \
+        fcitx5-gtk3 \
+        fcitx5-qt \
+        fcitx5-unikey \
         adwaita-icon-theme \
         mesa-gl \
         mesa-dri-gallium \
@@ -65,6 +69,9 @@ ENV \
     CHROMIUM_REMOTE_DEBUGGING=0 \
     CHROMIUM_REMOTE_DEBUGGING_PORT=9222 \
     CHROMIUM_CUSTOM_ARGS=
+    GTK_IM_MODULE=fcitx \
+    QT_IM_MODULE=fcitx \
+    XMODIFIERS=@im=fcitx
 
 # Expose ports.
 #   - 9222: For Chromium remote debugging.
