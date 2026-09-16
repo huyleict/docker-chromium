@@ -16,5 +16,8 @@ Layout=
 [Groups/0/Items/1]
 Name=unikey
 Layout=
+
+[GroupOrder]
+0=Default
 PROFILE
 fi
