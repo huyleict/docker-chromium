@@ -1,0 +1,16 @@
+services:
+  chromium:
+    build: .
+    image: chromium-xrdp:test
+    container_name: chromium-xrdp-test
+    restart: unless-stopped
+    ports:
+      - "5800:5800"
+      - "5900:5900"
+      - "3389:3389"
+    environment:
+      VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
+      XRDP_USERNAME: ${XRDP_USERNAME:-abc}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-1800}
+    volumes:
+      - ${CHROMIUM_CONFIG_DIR:-./chromium-xrdp-config}:/config
