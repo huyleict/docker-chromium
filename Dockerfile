@@ -73,6 +73,7 @@ ENV \
     GTK_IM_MODULE=fcitx \
     QT_IM_MODULE=fcitx \
     XMODIFIERS=@im=fcitx
+    XDG_CONFIG_HOME=/config/.config
 
 # Expose ports.
 #   - 9222: For Chromium remote debugging.

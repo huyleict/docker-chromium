@@ -1,2 +1,2 @@
 #!/bin/sh
-echo false
+echo true

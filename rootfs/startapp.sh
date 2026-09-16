@@ -4,10 +4,12 @@
 #       app service.
 #
 
-set -e # Exit immediately if a command exits with a non-zero status.
-set -u # Treat unset variables as an error.
+set -e
+set -u
 
 rm -rf /config/chromium/Singleton*
+
+fcitx5 -D --replace >> /config/log/chromium/fcitx5.log 2>&1 &
 
 exec /usr/bin/chromium-browser "$@" >> /config/log/chromium/output.log 2>> /config/log/chromium/error.log
 
