@@ -11,6 +11,12 @@ rm -rf /config/chromium/Singleton*
 
 fcitx5 -D --replace >> /config/log/chromium/fcitx5.log 2>&1 &
 
+for _ in 1 2 3 4 5 6 7 8 9 10
+do
+    fcitx5-remote -s unikey >/dev/null 2>&1 && break
+    sleep 1
+done
+
 exec /usr/bin/chromium-browser "$@" >> /config/log/chromium/output.log 2>> /config/log/chromium/error.log
 
 # vim:ft=sh:ts=4:sw=4:et:sts=4
