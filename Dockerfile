@@ -38,6 +38,7 @@ RUN \
     add-pkg \
         socat \
         xrdp \
+        dbus \
         fcitx5 \
         fcitx5-gtk3 \
         fcitx5-qt \
