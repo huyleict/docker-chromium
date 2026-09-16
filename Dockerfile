@@ -72,7 +72,7 @@ ENV \
     CHROMIUM_CUSTOM_ARGS= \
     GTK_IM_MODULE=fcitx \
     QT_IM_MODULE=fcitx \
-    XMODIFIERS=@im=fcitx
+    XMODIFIERS=@im=fcitx \
     XDG_CONFIG_HOME=/config/.config
 
 # Expose ports.
