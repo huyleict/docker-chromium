@@ -64,9 +64,7 @@ ENV \
     CHROMIUM_APP_URL= \
     CHROMIUM_REMOTE_DEBUGGING=0 \
     CHROMIUM_REMOTE_DEBUGGING_PORT=9222 \
-    CHROMIUM_CUSTOM_ARGS= \
-    XRDP_USERNAME=abc \
-    XRDP_PASSWORD=
+    CHROMIUM_CUSTOM_ARGS=
 
 # Expose ports.
 #   - 9222: For Chromium remote debugging.
