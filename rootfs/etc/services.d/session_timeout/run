@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -eu
+
+TIMEOUT=${GUI_IDLE_TIMEOUT:-1800}
+INTERVAL=30
+IDLE=0
+
+has_clients() {
+    awk '$4 == "01" && ($2 ~ /:0D3D$/ || $2 ~ /:170C$/ || $2 ~ /:16A8$/) { found=1 } END { exit !found }' /proc/net/tcp /proc/net/tcp6
+}
+
+while :; do
+    if has_clients; then
+        IDLE=0
+    else
+        IDLE=$((IDLE + INTERVAL))
+        if [ "$IDLE" -ge "$TIMEOUT" ]; then
+            pkill -TERM -f '/usr/lib/chromium/chromium' || true
+            IDLE=0
+        fi
+    fi
+    sleep "$INTERVAL"
+done

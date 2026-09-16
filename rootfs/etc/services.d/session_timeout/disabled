@@ -1,0 +1,2 @@
+#!/bin/sh
+[ "${GUI_IDLE_TIMEOUT:-1800}" -gt 0 ] && echo false || echo true
