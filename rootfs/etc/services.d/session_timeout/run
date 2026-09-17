@@ -10,13 +10,27 @@ has_clients() {
     awk '$4 == "01" && ($2 ~ /:0D3D$/ || $2 ~ /:170C$/ || $2 ~ /:16A8$/) { found=1 } END { exit !found }' /proc/net/tcp /proc/net/tcp6
 }
 
+stop_chromium() {
+    CHROMIUM_PID=$(pgrep -o -u app -f '/usr/lib/chromium/chromium' || true)
+    if [ -z "$CHROMIUM_PID" ]; then
+        return
+    fi
+
+    kill -TERM "$CHROMIUM_PID" 2>/dev/null || true
+    for _ in 1 2 3 4 5 6 7 8 9 10
+    do
+        kill -0 "$CHROMIUM_PID" 2>/dev/null || break
+        sleep 1
+    done
+}
+
 while :; do
     if has_clients; then
         IDLE=0
     else
         IDLE=$((IDLE + INTERVAL))
         if [ "$IDLE" -ge "$TIMEOUT" ]; then
-            pkill -TERM -u app -f '/usr/lib/chromium/chromium' || true
+            stop_chromium
             pkill -TERM -u app -x fcitx5 || true
             IDLE=0
         fi
