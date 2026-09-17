@@ -6,6 +6,8 @@ if ! check_pid_namespace >/dev/null; then
     printf "%s\n" "--no-sandbox"
 fi
 
+printf "%s\n" "--no-first-run"
+printf "%s\n" "--no-default-browser-check"
 printf "%s\n" "--disable-dev-shm-usage"
 printf "%s\n" "--ignore-gpu-blocklist"
 printf "%s\n" "--simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT'"
