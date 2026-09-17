@@ -10,5 +10,8 @@
   "SpellcheckLanguage": [
     "vi"
   ],
-  "TranslateEnabled": true
+  "TranslateEnabled": true,
+  "BuiltInDnsClientEnabled": true,
+  "DnsOverHttpsMode": "secure",
+  "DnsOverHttpsTemplates": "https://cloudflare-dns.com/dns-query"
 }

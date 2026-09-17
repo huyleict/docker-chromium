@@ -21,5 +21,9 @@
   "translate": {
     "enabled": true
   },
-  "translate_target_language": "vi"
+  "translate_target_language": "vi",
+  "dns_over_https": {
+    "mode": "secure",
+    "templates": "https://cloudflare-dns.com/dns-query"
+  }
 }
