@@ -26,6 +26,7 @@ fi
 
 fcitx5 -D --replace >> "$FCITX_LOG" 2>&1 &
 FCITX_PID=$!
+sleep 2
 
 /usr/bin/chromium-browser "$@" >> "$CHROMIUM_OUTPUT_LOG" 2>> "$CHROMIUM_ERROR_LOG" &
 CHROMIUM_PID=$!
