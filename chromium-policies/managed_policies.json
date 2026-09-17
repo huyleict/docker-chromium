@@ -4,5 +4,6 @@
   "ExtensionInstallForcelist": [
     "pnbbookneacpggbngfmhfggennhigonh"
   ],
-  "PromptForDownloadLocation": false
+  "PromptForDownloadLocation": false,
+  "DownloadDirectory": "/config/Downloads"
 }
