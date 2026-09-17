@@ -5,5 +5,10 @@
     "pnbbookneacpggbngfmhfggennhigonh"
   ],
   "PromptForDownloadLocation": false,
-  "DownloadDirectory": "/config/Downloads"
+  "DownloadDirectory": "/config/Downloads",
+  "SpellcheckEnabled": true,
+  "SpellcheckLanguage": [
+    "vi"
+  ],
+  "TranslateEnabled": true
 }
