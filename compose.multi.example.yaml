@@ -1,0 +1,85 @@
+services:
+  chromium-1:
+    image: chromium-xrdp:test
+    container_name: chromium-xrdp-1
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "3381:3389"
+    environment:
+      VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
+      XRDP_USERNAME: ${XRDP_USERNAME:-abc}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-60}
+      CHROMIUM_DEBUG: ${CHROMIUM_DEBUG:-0}
+    volumes:
+      - ./chromium-xrdp-config-1:/config
+      - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro
+
+  chromium-2:
+    image: chromium-xrdp:test
+    container_name: chromium-xrdp-2
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "3382:3389"
+    environment:
+      VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
+      XRDP_USERNAME: ${XRDP_USERNAME:-abc}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-60}
+      CHROMIUM_DEBUG: ${CHROMIUM_DEBUG:-0}
+    volumes:
+      - ./chromium-xrdp-config-2:/config
+      - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro
+
+  chromium-3:
+    image: chromium-xrdp:test
+    container_name: chromium-xrdp-3
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "3383:3389"
+    environment:
+      VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
+      XRDP_USERNAME: ${XRDP_USERNAME:-abc}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-60}
+      CHROMIUM_DEBUG: ${CHROMIUM_DEBUG:-0}
+    volumes:
+      - ./chromium-xrdp-config-3:/config
+      - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro
+
+  chromium-4:
+    image: chromium-xrdp:test
+    container_name: chromium-xrdp-4
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "3384:3389"
+    environment:
+      VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
+      XRDP_USERNAME: ${XRDP_USERNAME:-abc}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-60}
+      CHROMIUM_DEBUG: ${CHROMIUM_DEBUG:-0}
+    volumes:
+      - ./chromium-xrdp-config-4:/config
+      - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro
+
+  chromium-5:
+    image: chromium-xrdp:test
+    container_name: chromium-xrdp-5
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "3385:3389"
+    environment:
+      VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
+      XRDP_USERNAME: ${XRDP_USERNAME:-abc}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-60}
+      CHROMIUM_DEBUG: ${CHROMIUM_DEBUG:-0}
+    volumes:
+      - ./chromium-xrdp-config-5:/config
+      - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro
