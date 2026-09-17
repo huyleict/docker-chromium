@@ -9,6 +9,11 @@ set -u
 
 rm -rf /config/chromium/Singleton*
 
+while ! awk 'NR > 1 && ($2 ~ /:0D3D|:170C/) && $4 == "01" {found=1} END {exit !found}' /proc/net/tcp /proc/net/tcp6 2>/dev/null
+do
+    sleep 1
+done
+
 fcitx5 -D --replace >> /config/log/chromium/fcitx5.log 2>&1 &
 
 for _ in 1 2 3 4 5 6 7 8 9 10
