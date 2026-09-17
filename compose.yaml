@@ -4,6 +4,8 @@ services:
     image: chromium-xrdp:test
     container_name: chromium-xrdp-test
     restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
     ports:
       - "5800:5800"
       - "5900:5900"
