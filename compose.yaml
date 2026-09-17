@@ -13,7 +13,7 @@ services:
     environment:
       VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
       XRDP_USERNAME: ${XRDP_USERNAME:-abc}
-      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-1800}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-60}
     volumes:
       - ${CHROMIUM_CONFIG_DIR:-./chromium-xrdp-config}:/config
       - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro

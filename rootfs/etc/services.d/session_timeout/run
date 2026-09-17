@@ -2,7 +2,7 @@
 
 set -eu
 
-TIMEOUT=${GUI_IDLE_TIMEOUT:-1800}
+TIMEOUT=${GUI_IDLE_TIMEOUT:-60}
 INTERVAL=30
 IDLE=0
 
@@ -16,7 +16,8 @@ while :; do
     else
         IDLE=$((IDLE + INTERVAL))
         if [ "$IDLE" -ge "$TIMEOUT" ]; then
-            pkill -TERM -f '/usr/lib/chromium/chromium' || true
+            pkill -TERM -u app -f '/usr/lib/chromium/chromium' || true
+            pkill -TERM -u app -x fcitx5 || true
             IDLE=0
         fi
     fi
