@@ -2,7 +2,8 @@
   "DefaultBrowserSettingEnabled": false,
   "DefaultDownloadDirectory": "/config/Downloads",
   "ExtensionInstallForcelist": [
-    "pnbbookneacpggbngfmhfggennhigonh"
+    "pnbbookneacpggbngfmhfggennhigonh",
+    "gbkeegbaiigmenfmjfclcdgdpimamgkj"
   ],
   "PromptForDownloadLocation": false,
   "DownloadDirectory": "/config/Downloads",
@@ -13,5 +14,11 @@
   "TranslateEnabled": true,
   "BuiltInDnsClientEnabled": true,
   "DnsOverHttpsMode": "secure",
-  "DnsOverHttpsTemplates": "https://cloudflare-dns.com/dns-query"
+  "DnsOverHttpsTemplates": "https://cloudflare-dns.com/dns-query",
+  "ForcedLanguages": [
+    "vi",
+    "vi-VN",
+    "en-US",
+    "en"
+  ]
 }
