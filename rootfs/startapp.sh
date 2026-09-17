@@ -18,6 +18,9 @@ fcitx5 -D --replace >> /config/log/chromium/fcitx5.log 2>&1 &
 
 for _ in 1 2 3 4 5 6 7 8 9 10
 do
+    FCITX_ENV=$(tr "\0" "\n" < /proc/$(pgrep -o fcitx5)/environ 2>/dev/null |
+        grep -E "^(DBUS_SESSION_BUS_ADDRESS|DISPLAY|XDG_RUNTIME_DIR)=" || true)
+    eval "$(printf "%s\n" "$FCITX_ENV" | sed "s/^/export /")"
     fcitx5-remote -s unikey >/dev/null 2>&1 && break
     sleep 1
 done
