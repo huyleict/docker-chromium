@@ -20,5 +20,6 @@
     "vi-VN",
     "en-US",
     "en"
-  ]
+  ],
+  "RestoreOnStartup": 5
 }
