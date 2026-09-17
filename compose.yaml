@@ -14,3 +14,4 @@ services:
       GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-1800}
     volumes:
       - ${CHROMIUM_CONFIG_DIR:-./chromium-xrdp-config}:/config
+      - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro
