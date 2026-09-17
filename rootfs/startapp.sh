@@ -14,7 +14,17 @@ do
     sleep 1
 done
 
-fcitx5 -D --replace >> /config/log/chromium/fcitx5.log 2>&1 &
+if is-bool-val-true "${CHROMIUM_DEBUG:-0}"; then
+    FCITX_LOG=/config/log/chromium/fcitx5.log
+    CHROMIUM_OUTPUT_LOG=/config/log/chromium/output.log
+    CHROMIUM_ERROR_LOG=/config/log/chromium/error.log
+else
+    FCITX_LOG=/dev/null
+    CHROMIUM_OUTPUT_LOG=/dev/null
+    CHROMIUM_ERROR_LOG=/dev/null
+fi
+
+fcitx5 -D --replace >> "$FCITX_LOG" 2>&1 &
 
 for _ in 1 2 3 4 5 6 7 8 9 10
 do
@@ -25,6 +35,6 @@ do
     sleep 1
 done
 
-exec /usr/bin/chromium-browser "$@" >> /config/log/chromium/output.log 2>> /config/log/chromium/error.log
+exec /usr/bin/chromium-browser "$@" >> "$CHROMIUM_OUTPUT_LOG" 2>> "$CHROMIUM_ERROR_LOG"
 
 # vim:ft=sh:ts=4:sw=4:et:sts=4
