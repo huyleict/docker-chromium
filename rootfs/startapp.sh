@@ -25,6 +25,7 @@ else
 fi
 
 fcitx5 -D --replace >> "$FCITX_LOG" 2>&1 &
+FCITX_PID=$!
 
 /usr/bin/chromium-browser "$@" >> "$CHROMIUM_OUTPUT_LOG" 2>> "$CHROMIUM_ERROR_LOG" &
 CHROMIUM_PID=$!
@@ -34,7 +35,7 @@ kill -0 "$CHROMIUM_PID" 2>/dev/null || wait "$CHROMIUM_PID"
 
 for _ in 1 2 3 4 5 6 7 8 9 10
 do
-    FCITX_ENV=$(tr "\0" "\n" < /proc/$(pgrep -o fcitx5)/environ 2>/dev/null |
+    FCITX_ENV=$(tr "\0" "\n" < /proc/$FCITX_PID/environ 2>/dev/null |
         grep -E "^(DBUS_SESSION_BUS_ADDRESS|DISPLAY|XDG_RUNTIME_DIR)=" || true)
     eval "$(printf "%s\n" "$FCITX_ENV" | sed "s/^/export /")"
     fcitx5-remote -s unikey >/dev/null 2>&1 && break
