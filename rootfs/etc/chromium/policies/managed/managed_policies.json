@@ -3,5 +3,6 @@
   "DefaultDownloadDirectory": "/config/Downloads",
   "ExtensionInstallForcelist": [
     "pnbbookneacpggbngfmhfggennhigonh"
-  ]
+  ],
+  "PromptForDownloadLocation": false
 }
