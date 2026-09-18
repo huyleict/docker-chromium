@@ -25,6 +25,7 @@ fi
 set -- "$@" \
     --no-first-run \
     --no-default-browser-check \
+    --hide-crash-restore-bubble \
     --disable-dev-shm-usage \
     --ignore-gpu-blocklist \
     "--simulate-outdated-no-au=Tue, 31 Dec 2099 23:59:59 GMT" \
