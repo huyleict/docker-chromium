@@ -11,16 +11,18 @@ dbus-run-session -- sh -c '
     fcitx5 -D --replace >/dev/null 2>&1 &
     FCITX_PID=$!
     sleep 2
-    CHROMIUM_ARGS="--no-first-run --no-default-browser-check --disable-dev-shm-usage --ignore-gpu-blocklist --start-maximized --user-data-dir=/config/chromium"
+    CHROMIUM_ARGS="--no-first-run --no-default-browser-check --disable-dev-shm-usage --ignore-gpu-blocklist --start-maximized --user-data-dir=/config/chromium-xorg-$USER"
     if ! check_pid_namespace >/dev/null 2>&1; then
         CHROMIUM_ARGS="$CHROMIUM_ARGS --no-sandbox"
     fi
     if [ -n "${CHROMIUM_APP_URL:-}" ]; then
         CHROMIUM_ARGS="$CHROMIUM_ARGS --app=$CHROMIUM_APP_URL"
     fi
-    if is-bool-val-true "${CHROMIUM_REMOTE_DEBUGGING:-0}"; then
-        CHROMIUM_ARGS="$CHROMIUM_ARGS --remote-debugging-port=$((${CHROMIUM_REMOTE_DEBUGGING_PORT:-9222} + 1))"
-    fi
+    case "${CHROMIUM_REMOTE_DEBUGGING:-0}" in
+        1|true|TRUE|yes|YES)
+            CHROMIUM_ARGS="$CHROMIUM_ARGS --remote-debugging-port=$((${CHROMIUM_REMOTE_DEBUGGING_PORT:-9222} + 1))"
+            ;;
+    esac
     if [ -n "${CHROMIUM_CUSTOM_ARGS:-}" ]; then
         CHROMIUM_ARGS="$CHROMIUM_ARGS $CHROMIUM_CUSTOM_ARGS"
     fi

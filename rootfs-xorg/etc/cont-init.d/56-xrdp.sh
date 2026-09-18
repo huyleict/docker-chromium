@@ -11,6 +11,11 @@ fi
 
 printf '%s:%s\n' "$XRDP_USERNAME" "$XRDP_PASSWORD" | chpasswd
 
+mkdir -p "/config/chromium-xorg-$XRDP_USERNAME" "/config/log/chromium-xorg-$XRDP_USERNAME"
+chown -R "$XRDP_USERNAME" \
+    "/config/chromium-xorg-$XRDP_USERNAME" \
+    "/config/log/chromium-xorg-$XRDP_USERNAME"
+
 xrdp-sesman --nodaemon >> /config/log/xrdp-sesman.log 2>&1 &
 
 for _ in 1 2 3 4 5 6 7 8 9 10
