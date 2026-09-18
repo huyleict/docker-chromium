@@ -3,9 +3,10 @@ set -eu
 
 SESSION_USER=${USER:-$(id -un)}
 PROFILE_DIR=/config/chromium-xorg-$SESSION_USER
+LOG_DIR=/config/log/chromium-xorg-$SESSION_USER
 export XDG_CONFIG_HOME="$PROFILE_DIR/config"
 export XDG_CACHE_HOME="$PROFILE_DIR/cache"
-mkdir -p "$PROFILE_DIR/Crash Reports" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
+mkdir -p "$PROFILE_DIR/Crash Reports" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME" "$LOG_DIR"
 
 fcitx5 -D --replace >/dev/null 2>&1 &
 FCITX_PID=$!
@@ -33,7 +34,7 @@ if [ -n "${CHROMIUM_CUSTOM_ARGS:-}" ]; then
     eval "set -- \"\$@\" $CHROMIUM_CUSTOM_ARGS"
 fi
 
-/usr/bin/chromium-browser "$@" >/dev/null 2>&1 &
+/usr/bin/chromium-browser "$@" >>"$LOG_DIR/output.log" 2>>"$LOG_DIR/error.log" &
 CHROMIUM_PID=$!
 sleep 1
 
