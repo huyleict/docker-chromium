@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eu
+set -u
 
 TIMEOUT=${GUI_IDLE_TIMEOUT:-60}
 INTERVAL=30
