@@ -31,6 +31,7 @@ set -- \
     "--simulate-outdated-no-au=Tue, 31 Dec 2099 23:59:59 GMT" \
     --start-maximized \
     --start-fullscreen \
+    --kiosk \
     "--user-data-dir=$PROFILE_DIR"
 
 if [ -n "${CHROMIUM_APP_URL:-}" ]; then
