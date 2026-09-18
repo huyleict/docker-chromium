@@ -30,8 +30,6 @@ set -- \
     --ignore-gpu-blocklist \
     "--simulate-outdated-no-au=Tue, 31 Dec 2099 23:59:59 GMT" \
     --start-maximized \
-    --start-fullscreen \
-    --kiosk \
     "--user-data-dir=$PROFILE_DIR"
 
 if [ -n "${CHROMIUM_APP_URL:-}" ]; then
@@ -49,4 +47,5 @@ fi
 /usr/bin/chromium-browser "$@" >>"$LOG_DIR/output.log" 2>>"$LOG_DIR/error.log" &
 CHROMIUM_PID=$!
 sleep 1
+wmctrl -x -r chromium -b add,maximized_vert,maximized_horz >/dev/null 2>&1 || true
 wait "$CHROMIUM_PID"
