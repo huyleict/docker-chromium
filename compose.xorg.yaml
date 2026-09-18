@@ -1,0 +1,24 @@
+services:
+  chromium-xrdp-xorg:
+    build:
+      context: .
+      dockerfile: Dockerfile.xorg
+    image: chromium-xrdp:xorg
+    container_name: chromium-xrdp-xorg
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "3389:3389"
+    environment:
+      VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
+      XRDP_USERNAME: ${XRDP_USERNAME:-app}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-60}
+      CHROMIUM_DEBUG: ${CHROMIUM_DEBUG:-0}
+      CHROMIUM_APP_URL: ${CHROMIUM_APP_URL:-}
+      CHROMIUM_CUSTOM_ARGS: ${CHROMIUM_CUSTOM_ARGS:-}
+      CHROMIUM_REMOTE_DEBUGGING: ${CHROMIUM_REMOTE_DEBUGGING:-0}
+      CHROMIUM_REMOTE_DEBUGGING_PORT: ${CHROMIUM_REMOTE_DEBUGGING_PORT:-9222}
+    volumes:
+      - ${CHROMIUM_CONFIG_DIR:-./chromium-xrdp-xorg-config}:/config
+      - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro

@@ -1,0 +1,5 @@
+FROM chromium-xrdp:test
+
+RUN add-pkg xorg-server xorgxrdp
+
+COPY rootfs-xorg/ /

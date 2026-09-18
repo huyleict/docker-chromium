@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+
+xrdp-sesman --nodaemon &
+SESMAN_PID=$!
+trap 'kill "$SESMAN_PID" 2>/dev/null || true' TERM INT EXIT
+exec xrdp --nodaemon
