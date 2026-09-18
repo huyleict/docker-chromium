@@ -2,8 +2,9 @@
 set -eu
 
 PROFILE_DIR=/config/chromium-xorg-$USER
-export XDG_CONFIG_HOME=/config/config-xorg-$USER
-export XDG_CACHE_HOME=/config/cache/chromium-xorg-$USER
+export HOME="$PROFILE_DIR"
+export XDG_CONFIG_HOME="$PROFILE_DIR/config"
+export XDG_CACHE_HOME="$PROFILE_DIR/cache"
 mkdir -p "$PROFILE_DIR/Crash Reports" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 
 fcitx5 -D --replace >/dev/null 2>&1 &
