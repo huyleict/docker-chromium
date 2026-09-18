@@ -51,9 +51,13 @@ fi
 CHROMIUM_PID=$!
 for _ in 1 2 3 4 5 6 7 8 9 10
  do
-    WINDOW_ID=$(xdotool search --onlyvisible --class 'chromium' 2>/dev/null | head -n 1 || true)
-    if [ -n "$WINDOW_ID" ]; then
-        xdotool windowmaximize "$WINDOW_ID" >/dev/null 2>&1 || true
+    WINDOW_IDS=$(xdotool search --onlyvisible --class '.*' 2>/dev/null || true)
+    if [ -n "$WINDOW_IDS" ]; then
+        for WINDOW_ID in $WINDOW_IDS
+        do
+            xdotool windowactivate --sync "$WINDOW_ID" >/dev/null 2>&1 || true
+            xdotool windowmaximize "$WINDOW_ID" >/dev/null 2>&1 || true
+        done
         break
     fi
     sleep 1
