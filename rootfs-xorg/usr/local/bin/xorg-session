@@ -26,10 +26,15 @@ set --
 if ! check_pid_namespace >/dev/null 2>&1; then
     set -- --no-sandbox
 fi
+SCREEN_SIZE=$(xrandr --current 2>/dev/null |
+    awk '/ connected/{print $3; exit}' |
+    cut -d+ -f1)
+if [ -n "$SCREEN_SIZE" ]; then
+    set -- "$@" "--window-size=$SCREEN_SIZE" "--window-position=0,0"
+fi
 set -- "$@" \
     --no-first-run \
     --no-default-browser-check \
-    --no-sandbox \
     --disable-dev-shm-usage \
     --ignore-gpu-blocklist \
     "--simulate-outdated-no-au=Tue, 31 Dec 2099 23:59:59 GMT" \
