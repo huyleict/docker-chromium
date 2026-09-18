@@ -51,13 +51,13 @@ fi
 CHROMIUM_PID=$!
 for _ in 1 2 3 4 5 6 7 8 9 10
  do
-    WINDOW_IDS=$(xdotool search --onlyvisible --class '.*' 2>/dev/null || true)
-    if [ -n "$WINDOW_IDS" ]; then
-        for WINDOW_ID in $WINDOW_IDS
-        do
-            xdotool windowactivate --sync "$WINDOW_ID" >/dev/null 2>&1 || true
-            xdotool windowmaximize "$WINDOW_ID" >/dev/null 2>&1 || true
-        done
+    WINDOW_ID=$(xdotool search --onlyvisible --class '.*' 2>/dev/null | tail -n 1 || true)
+    SCREEN_SIZE=$(xdotool getdisplaygeometry 2>/dev/null || true)
+    if [ -n "$WINDOW_ID" ] && [ -n "$SCREEN_SIZE" ]; then
+        SCREEN_WIDTH=${SCREEN_SIZE%% *}
+        SCREEN_HEIGHT=${SCREEN_SIZE##* }
+        xdotool windowmove "$WINDOW_ID" 0 0 >/dev/null 2>&1 || true
+        xdotool windowsize "$WINDOW_ID" "$SCREEN_WIDTH" "$SCREEN_HEIGHT" >/dev/null 2>&1 || true
         break
     fi
     sleep 1
