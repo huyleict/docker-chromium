@@ -12,6 +12,11 @@ fcitx5 -D --replace >/dev/null 2>&1 &
 FCITX_PID=$!
 sleep 2
 
+FCITX_ENV=$(tr '\0' '\n' < /proc/$FCITX_PID/environ 2>/dev/null |
+    grep -E '^(DBUS_SESSION_BUS_ADDRESS|DISPLAY|XDG_RUNTIME_DIR)=' || true)
+eval "$(printf '%s\n' "$FCITX_ENV" | sed 's/^/export /')"
+fcitx5-remote -s unikey >/dev/null 2>&1 || true
+
 set -- \
     --no-first-run \
     --no-default-browser-check \
@@ -38,9 +43,4 @@ fi
 /usr/bin/chromium-browser "$@" >>"$LOG_DIR/output.log" 2>>"$LOG_DIR/error.log" &
 CHROMIUM_PID=$!
 sleep 1
-
-FCITX_ENV=$(tr '\0' '\n' < /proc/$FCITX_PID/environ 2>/dev/null |
-    grep -E '^(DBUS_SESSION_BUS_ADDRESS|DISPLAY|XDG_RUNTIME_DIR)=' || true)
-eval "$(printf '%s\n' "$FCITX_ENV" | sed 's/^/export /')"
-fcitx5-remote -s unikey >/dev/null 2>&1 || true
 wait "$CHROMIUM_PID"
