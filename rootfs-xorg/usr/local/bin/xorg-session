@@ -7,6 +7,7 @@ LOG_DIR=/config/log/chromium-xorg-$SESSION_USER
 export XDG_CONFIG_HOME="$PROFILE_DIR/config"
 export XDG_CACHE_HOME="$PROFILE_DIR/cache"
 mkdir -p "$PROFILE_DIR/Crash Reports" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME" "$LOG_DIR"
+rm -f "$PROFILE_DIR"/SingletonLock "$PROFILE_DIR"/SingletonCookie "$PROFILE_DIR"/SingletonSocket
 if [ -d /config/.config/fcitx5 ]; then
     mkdir -p "$XDG_CONFIG_HOME/fcitx5"
     cp -R /config/.config/fcitx5/. "$XDG_CONFIG_HOME/fcitx5/"
