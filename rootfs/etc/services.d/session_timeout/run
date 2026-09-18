@@ -5,23 +5,24 @@ set -eu
 TIMEOUT=${GUI_IDLE_TIMEOUT:-60}
 INTERVAL=30
 IDLE=0
+TARGET_USER=${XRDP_USERNAME:-app}
 
 has_clients() {
     awk '$4 == "01" && ($2 ~ /:0D3D$/ || $2 ~ /:170C$/ || $2 ~ /:16A8$/) { found=1 } END { exit !found }' /proc/net/tcp /proc/net/tcp6
 }
 
 stop_chromium() {
-    CHROMIUM_PID=$(pgrep -o -u app -f '/usr/lib/chromium/chromium' || true)
-    if [ -z "$CHROMIUM_PID" ]; then
+    if ! pgrep -u "$TARGET_USER" -f '/usr/lib/chromium/(chromium|chromium-browser)' >/dev/null 2>&1; then
         return
     fi
 
-    kill -TERM "$CHROMIUM_PID" 2>/dev/null || true
+    pkill -TERM -u "$TARGET_USER" -f '/usr/lib/chromium/(chromium|chromium-browser)' 2>/dev/null || true
     for _ in 1 2 3 4 5 6 7 8 9 10
     do
-        kill -0 "$CHROMIUM_PID" 2>/dev/null || break
+        pgrep -u "$TARGET_USER" -f '/usr/lib/chromium/(chromium|chromium-browser)' >/dev/null 2>&1 || return
         sleep 1
     done
+    pkill -KILL -u "$TARGET_USER" -f '/usr/lib/chromium/(chromium|chromium-browser)' 2>/dev/null || true
 }
 
 while :; do
@@ -31,7 +32,7 @@ while :; do
         IDLE=$((IDLE + INTERVAL))
         if [ "$IDLE" -ge "$TIMEOUT" ]; then
             stop_chromium
-            pkill -TERM -u app -x fcitx5 || true
+            pkill -TERM -u "$TARGET_USER" -x fcitx5 || true
             IDLE=0
         fi
     fi
