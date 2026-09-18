@@ -1,7 +1,9 @@
 #!/bin/sh
 set -eu
 
-export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-/config/.config}
+export HOME=/config
+export XDG_CONFIG_HOME=/config/.config
+export LANG=${LANG:-C.UTF-8}
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
@@ -11,7 +13,7 @@ dbus-run-session -- sh -c '
     fcitx5 -D --replace >/dev/null 2>&1 &
     FCITX_PID=$!
     sleep 2
-    CHROMIUM_ARGS="--no-first-run --no-default-browser-check --disable-dev-shm-usage --ignore-gpu-blocklist --start-maximized --user-data-dir=/config/chromium-xorg-$USER"
+    CHROMIUM_ARGS="--no-first-run --no-default-browser-check --disable-dev-shm-usage --ignore-gpu-blocklist --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT' --start-maximized --user-data-dir=/config/chromium-xorg-$USER"
     if ! check_pid_namespace >/dev/null 2>&1; then
         CHROMIUM_ARGS="$CHROMIUM_ARGS --no-sandbox"
     fi
