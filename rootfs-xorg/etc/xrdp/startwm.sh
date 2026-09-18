@@ -8,17 +8,6 @@ export XMODIFIERS=@im=fcitx
 
 mkdir -p "$HOME/.config/openbox"
 cp /etc/xdg/openbox/rc.xml "$HOME/.config/openbox/rc.xml"
-awk '
-    /<\/applications>/ && !inserted {
-        print "    <application name=\"chromium-browser\" class=\"Chromium-browser\">"
-        print "      <decor>no</decor>"
-        print "      <maximized>yes</maximized>"
-        print "    </application>"
-        inserted = 1
-    }
-    { print }
-' "$HOME/.config/openbox/rc.xml" > "$HOME/.config/openbox/rc.xml.new"
-mv "$HOME/.config/openbox/rc.xml.new" "$HOME/.config/openbox/rc.xml"
 openbox-session >/dev/null 2>&1 &
 sleep 1
 exec dbus-run-session -- /usr/local/bin/xorg-session
