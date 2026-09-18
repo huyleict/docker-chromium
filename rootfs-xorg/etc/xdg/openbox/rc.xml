@@ -3,7 +3,6 @@
   <applications>
     <application name="*" class="*" type="normal">
       <decor>no</decor>
-      <maximized>true</maximized>
     </application>
   </applications>
 </openbox_config>
