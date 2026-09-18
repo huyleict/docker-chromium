@@ -19,6 +19,10 @@ fcitx5 -D --replace >/dev/null 2>&1 &
 FCITX_PID=$!
 sleep 2
 
+SCREEN_SIZE=$(xdotool getdisplaygeometry 2>/dev/null || printf '1024 768')
+SCREEN_WIDTH=${SCREEN_SIZE%% *}
+SCREEN_HEIGHT=${SCREEN_SIZE##* }
+
 set --
 if ! check_pid_namespace >/dev/null 2>&1; then
     set -- --no-sandbox
@@ -30,7 +34,8 @@ set -- "$@" \
     --disable-dev-shm-usage \
     --ignore-gpu-blocklist \
     "--simulate-outdated-no-au=Tue, 31 Dec 2099 23:59:59 GMT" \
-    --start-maximized \
+    "--window-position=0,0" \
+    "--window-size=$SCREEN_WIDTH,$SCREEN_HEIGHT" \
     "--user-data-dir=$PROFILE_DIR"
 
 if [ -n "${CHROMIUM_APP_URL:-}" ]; then
