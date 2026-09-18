@@ -1,0 +1,5 @@
+<applications>
+  <application name="chromium*" class="Chromium*" type="normal">
+    <maximized>true</maximized>
+  </application>
+</applications>

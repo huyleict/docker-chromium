@@ -6,6 +6,8 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 
+mkdir -p "$HOME/.config/openbox"
+cp /etc/xdg/openbox/applications "$HOME/.config/openbox/applications"
 openbox-session >/dev/null 2>&1 &
 sleep 1
 exec dbus-run-session -- /usr/local/bin/xorg-session
