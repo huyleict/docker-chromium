@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile.xorg
     image: chromium-xrdp:xorg
     container_name: chromium-xrdp-xorg
+    networks:
+      - chromium-xrdp-xorg
     restart: unless-stopped
     cap_add:
       - SYS_ADMIN
@@ -22,3 +24,8 @@ services:
     volumes:
       - ${CHROMIUM_CONFIG_DIR:-./chromium-xrdp-xorg-config}:/config
       - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro
+
+networks:
+  chromium-xrdp-xorg:
+    name: chromium-xrdp-xorg-net
+    driver: bridge
