@@ -49,5 +49,13 @@ fi
 
 /usr/bin/chromium-browser "$@" >>"$LOG_DIR/output.log" 2>>"$LOG_DIR/error.log" &
 CHROMIUM_PID=$!
-sleep 1
+for _ in 1 2 3 4 5 6 7 8 9 10
+ do
+    WINDOW_ID=$(xdotool search --onlyvisible --class 'chromium' 2>/dev/null | head -n 1 || true)
+    if [ -n "$WINDOW_ID" ]; then
+        xdotool windowmaximize "$WINDOW_ID" >/dev/null 2>&1 || true
+        break
+    fi
+    sleep 1
+done
 wait "$CHROMIUM_PID"
