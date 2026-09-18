@@ -3,3 +3,5 @@ FROM chromium-xrdp:test
 RUN add-pkg xorg-server xorgxrdp
 
 COPY rootfs-xorg/ /
+
+RUN rm -f /etc/services.d/xrdp/disabled
