@@ -47,5 +47,4 @@ fi
 /usr/bin/chromium-browser "$@" >>"$LOG_DIR/output.log" 2>>"$LOG_DIR/error.log" &
 CHROMIUM_PID=$!
 sleep 1
-wmctrl -x -r chromium -b add,maximized_vert,maximized_horz >/dev/null 2>&1 || true
 wait "$CHROMIUM_PID"
