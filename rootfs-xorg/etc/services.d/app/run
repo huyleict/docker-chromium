@@ -1,2 +1,8 @@
 #!/bin/sh
+set -eu
+
+XRDP_USERNAME=${XRDP_USERNAME:-app}
+mkdir -p "/config/chromium-xorg-$XRDP_USERNAME" "/config/log/chromium-xorg-$XRDP_USERNAME"
+chmod 777 "/config/chromium-xorg-$XRDP_USERNAME" "/config/log/chromium-xorg-$XRDP_USERNAME"
+
 exec sleep infinity
