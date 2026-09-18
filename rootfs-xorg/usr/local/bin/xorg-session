@@ -16,8 +16,6 @@ if [ -d /config/.config/fcitx5 ]; then
 fi
 
 fcitx5 -D --replace >/dev/null 2>&1 &
-FCITX_PID=$!
-
 set --
 if ! check_pid_namespace >/dev/null 2>&1; then
     set -- --no-sandbox
@@ -49,10 +47,13 @@ CHROMIUM_PID=$!
 (
 for _ in 1 2 3 4 5 6 7 8 9 10
 do
-    FCITX_ENV=$(tr '\0' '\n' < /proc/$FCITX_PID/environ 2>/dev/null |
-        grep -E '^(DBUS_SESSION_BUS_ADDRESS|DISPLAY|XDG_RUNTIME_DIR)=' || true)
-    eval "$(printf '%s\n' "$FCITX_ENV" | sed 's/^/export /')"
-    fcitx5-remote -s unikey >/dev/null 2>&1 && break
+    FCITX_PID=$(pgrep -o fcitx5 2>/dev/null || true)
+    if [ -n "$FCITX_PID" ]; then
+        FCITX_ENV=$(tr '\0' '\n' < /proc/$FCITX_PID/environ 2>/dev/null |
+            grep -E '^(DBUS_SESSION_BUS_ADDRESS|DISPLAY|XDG_RUNTIME_DIR)=' || true)
+        eval "$(printf '%s\n' "$FCITX_ENV" | sed 's/^/export /')"
+        fcitx5-remote -s unikey >/dev/null 2>&1 && break
+    fi
     sleep 1
 done
 ) &
