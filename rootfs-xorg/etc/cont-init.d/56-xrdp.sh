@@ -18,3 +18,8 @@ do
     [ -S /run/xrdp/sesman.socket ] && break
     sleep 1
 done
+
+for XRDP_FILE in /etc/xrdp/rsakeys.ini /etc/xrdp/cert.pem /etc/xrdp/key.pem
+do
+    [ -f "$XRDP_FILE" ] && chmod 644 "$XRDP_FILE"
+done
