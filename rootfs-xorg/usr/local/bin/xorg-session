@@ -26,13 +26,6 @@ set --
 if ! check_pid_namespace >/dev/null 2>&1; then
     set -- --no-sandbox
 fi
-SCREEN_SIZE=$(xrandr --current 2>/dev/null |
-    awk '/ connected/{print $3; exit}' |
-    cut -d+ -f1)
-if [ -n "$SCREEN_SIZE" ]; then
-    SCREEN_SIZE=$(printf "%s" "$SCREEN_SIZE" | tr x ,)
-    set -- "$@" "--window-size=$SCREEN_SIZE" "--window-position=0,0"
-fi
 set -- "$@" \
     --no-first-run \
     --no-default-browser-check \
