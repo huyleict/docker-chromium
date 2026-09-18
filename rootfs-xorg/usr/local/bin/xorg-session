@@ -5,13 +5,13 @@ PROFILE_DIR=/config/chromium-xorg-$USER
 export HOME="$PROFILE_DIR"
 export XDG_CONFIG_HOME="$PROFILE_DIR/config"
 export XDG_CACHE_HOME="$PROFILE_DIR/cache"
-mkdir -p "$PROFILE_DIR/Crash Reports" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
+mkdir -p "$PROFILE_DIR/Crash Reports" "$PROFILE_DIR/crash-dumps" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 
 fcitx5 -D --replace >/dev/null 2>&1 &
 FCITX_PID=$!
 sleep 2
 
-CHROMIUM_ARGS="--no-first-run --no-default-browser-check --no-sandbox --disable-breakpad --disable-crashpad --disable-crash-reporter --disable-features=Crashpad --disable-dev-shm-usage --ignore-gpu-blocklist --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT' --start-maximized --user-data-dir=$PROFILE_DIR"
+CHROMIUM_ARGS="--no-first-run --no-default-browser-check --no-sandbox --disable-breakpad --disable-crashpad --disable-crash-reporter --disable-features=Crashpad --crash-dumps-dir=$PROFILE_DIR/crash-dumps --disable-dev-shm-usage --ignore-gpu-blocklist --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT' --start-maximized --user-data-dir=$PROFILE_DIR"
 if ! check_pid_namespace >/dev/null 2>&1; then
     CHROMIUM_ARGS="$CHROMIUM_ARGS --no-sandbox"
 fi
