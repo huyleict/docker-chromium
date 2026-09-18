@@ -15,6 +15,9 @@ mkdir -p "/config/chromium-xorg-$XRDP_USERNAME" "/config/log/chromium-xorg-$XRDP
 chown -R "$XRDP_USERNAME" \
     "/config/chromium-xorg-$XRDP_USERNAME" \
     "/config/log/chromium-xorg-$XRDP_USERNAME"
+chmod 700 \
+    "/config/chromium-xorg-$XRDP_USERNAME" \
+    "/config/log/chromium-xorg-$XRDP_USERNAME"
 
 xrdp-sesman --nodaemon >> /config/log/xrdp-sesman.log 2>&1 &
 
