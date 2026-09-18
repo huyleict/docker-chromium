@@ -10,7 +10,7 @@ mkdir -p "$HOME/.config/openbox"
 cp /etc/xdg/openbox/rc.xml "$HOME/.config/openbox/rc.xml"
 awk '
     /<\/applications>/ && !inserted {
-        print "    <application class=\"*\">"
+        print "    <application name=\"chromium-browser\" class=\"Chromium-browser\">"
         print "      <maximized>yes</maximized>"
         print "    </application>"
         inserted = 1
