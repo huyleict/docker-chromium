@@ -1,0 +1,120 @@
+services:
+  chromium-xrdp-xorg-1:
+    image: chromium-xrdp:xorg
+    container_name: chromium-xrdp-xorg-1
+    networks:
+      - chromium-xrdp-xorg
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "3381:3389"
+    environment:
+      VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
+      XRDP_USERNAME: ${XRDP_XORG_USERNAME:-app}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-60}
+      CHROMIUM_DEBUG: ${CHROMIUM_DEBUG:-0}
+      CHROMIUM_APP_URL: ${CHROMIUM_APP_URL:-}
+      CHROMIUM_CUSTOM_ARGS: ${CHROMIUM_CUSTOM_ARGS:-}
+      CHROMIUM_REMOTE_DEBUGGING: ${CHROMIUM_REMOTE_DEBUGGING:-0}
+      CHROMIUM_REMOTE_DEBUGGING_PORT: ${CHROMIUM_REMOTE_DEBUGGING_PORT:-9222}
+    volumes:
+      - ./chromium-xrdp-xorg-config-1:/config
+      - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro
+
+  chromium-xrdp-xorg-2:
+    image: chromium-xrdp:xorg
+    container_name: chromium-xrdp-xorg-2
+    networks:
+      - chromium-xrdp-xorg
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "3382:3389"
+    environment:
+      VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
+      XRDP_USERNAME: ${XRDP_XORG_USERNAME:-app}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-60}
+      CHROMIUM_DEBUG: ${CHROMIUM_DEBUG:-0}
+      CHROMIUM_APP_URL: ${CHROMIUM_APP_URL:-}
+      CHROMIUM_CUSTOM_ARGS: ${CHROMIUM_CUSTOM_ARGS:-}
+      CHROMIUM_REMOTE_DEBUGGING: ${CHROMIUM_REMOTE_DEBUGGING:-0}
+      CHROMIUM_REMOTE_DEBUGGING_PORT: ${CHROMIUM_REMOTE_DEBUGGING_PORT:-9222}
+    volumes:
+      - ./chromium-xrdp-xorg-config-2:/config
+      - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro
+
+  chromium-xrdp-xorg-3:
+    image: chromium-xrdp:xorg
+    container_name: chromium-xrdp-xorg-3
+    networks:
+      - chromium-xrdp-xorg
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "3383:3389"
+    environment:
+      VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
+      XRDP_USERNAME: ${XRDP_XORG_USERNAME:-app}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-60}
+      CHROMIUM_DEBUG: ${CHROMIUM_DEBUG:-0}
+      CHROMIUM_APP_URL: ${CHROMIUM_APP_URL:-}
+      CHROMIUM_CUSTOM_ARGS: ${CHROMIUM_CUSTOM_ARGS:-}
+      CHROMIUM_REMOTE_DEBUGGING: ${CHROMIUM_REMOTE_DEBUGGING:-0}
+      CHROMIUM_REMOTE_DEBUGGING_PORT: ${CHROMIUM_REMOTE_DEBUGGING_PORT:-9222}
+    volumes:
+      - ./chromium-xrdp-xorg-config-3:/config
+      - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro
+
+  chromium-xrdp-xorg-4:
+    image: chromium-xrdp:xorg
+    container_name: chromium-xrdp-xorg-4
+    networks:
+      - chromium-xrdp-xorg
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "3384:3389"
+    environment:
+      VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
+      XRDP_USERNAME: ${XRDP_XORG_USERNAME:-app}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-60}
+      CHROMIUM_DEBUG: ${CHROMIUM_DEBUG:-0}
+      CHROMIUM_APP_URL: ${CHROMIUM_APP_URL:-}
+      CHROMIUM_CUSTOM_ARGS: ${CHROMIUM_CUSTOM_ARGS:-}
+      CHROMIUM_REMOTE_DEBUGGING: ${CHROMIUM_REMOTE_DEBUGGING:-0}
+      CHROMIUM_REMOTE_DEBUGGING_PORT: ${CHROMIUM_REMOTE_DEBUGGING_PORT:-9222}
+    volumes:
+      - ./chromium-xrdp-xorg-config-4:/config
+      - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro
+
+  chromium-xrdp-xorg-5:
+    image: chromium-xrdp:xorg
+    container_name: chromium-xrdp-xorg-5
+    networks:
+      - chromium-xrdp-xorg
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "3385:3389"
+    environment:
+      VNC_PASSWORD: ${VNC_PASSWORD:?Set VNC_PASSWORD in .env}
+      XRDP_USERNAME: ${XRDP_XORG_USERNAME:-app}
+      GUI_IDLE_TIMEOUT: ${GUI_IDLE_TIMEOUT:-60}
+      CHROMIUM_DEBUG: ${CHROMIUM_DEBUG:-0}
+      CHROMIUM_APP_URL: ${CHROMIUM_APP_URL:-}
+      CHROMIUM_CUSTOM_ARGS: ${CHROMIUM_CUSTOM_ARGS:-}
+      CHROMIUM_REMOTE_DEBUGGING: ${CHROMIUM_REMOTE_DEBUGGING:-0}
+      CHROMIUM_REMOTE_DEBUGGING_PORT: ${CHROMIUM_REMOTE_DEBUGGING_PORT:-9222}
+    volumes:
+      - ./chromium-xrdp-xorg-config-5:/config
+      - ./chromium-policies/managed_policies.json:/etc/chromium/policies/managed/managed_policies.json:ro
+
+networks:
+  chromium-xrdp-xorg:
+    name: chromium-xrdp-xorg-multi-net
+    driver: bridge
