@@ -53,7 +53,7 @@ fi
 CHROMIUM_PID=$!
 for _ in 1 2 3 4 5 6 7 8 9 10
  do
-    WINDOW_ID=$(xdotool search --onlyvisible --class '.*' 2>/dev/null | tail -n 1 || true)
+    WINDOW_ID=$(xdotool search --onlyvisible --class '.*' 2>/dev/null | awk '$1 > 100000 {print $1; exit}' || true)
     SCREEN_SIZE=$(xdotool getdisplaygeometry 2>/dev/null || true)
     if [ -n "$WINDOW_ID" ] && [ -n "$SCREEN_SIZE" ]; then
         SCREEN_WIDTH=${SCREEN_SIZE%% *}
