@@ -1,33 +1,39 @@
 #!/bin/sh
 set -eu
 
-PROFILE_DIR=/config/chromium-xorg-$USER
-export HOME="$PROFILE_DIR"
+SESSION_USER=${USER:-$(id -un)}
+PROFILE_DIR=/config/chromium-xorg-$SESSION_USER
 export XDG_CONFIG_HOME="$PROFILE_DIR/config"
 export XDG_CACHE_HOME="$PROFILE_DIR/cache"
-mkdir -p "$PROFILE_DIR/Crash Reports" "$PROFILE_DIR/crash-dumps" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
+mkdir -p "$PROFILE_DIR/Crash Reports" "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME"
 
 fcitx5 -D --replace >/dev/null 2>&1 &
 FCITX_PID=$!
 sleep 2
 
-CHROMIUM_ARGS="--no-first-run --no-default-browser-check --no-sandbox --disable-breakpad --disable-crashpad-for-testing --disable-crash-reporter --disable-features=Crashpad --crash-dumps-dir=$PROFILE_DIR/crash-dumps --disable-dev-shm-usage --ignore-gpu-blocklist --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT' --start-maximized --user-data-dir=$PROFILE_DIR"
-if ! check_pid_namespace >/dev/null 2>&1; then
-    CHROMIUM_ARGS="$CHROMIUM_ARGS --no-sandbox"
-fi
+set -- \
+    --no-first-run \
+    --no-default-browser-check \
+    --no-sandbox \
+    --disable-dev-shm-usage \
+    --ignore-gpu-blocklist \
+    "--simulate-outdated-no-au=Tue, 31 Dec 2099 23:59:59 GMT" \
+    --start-maximized \
+    "--user-data-dir=$PROFILE_DIR"
+
 if [ -n "${CHROMIUM_APP_URL:-}" ]; then
-    CHROMIUM_ARGS="$CHROMIUM_ARGS --app=$CHROMIUM_APP_URL"
+    set -- "$@" "--app=$CHROMIUM_APP_URL"
 fi
 case "${CHROMIUM_REMOTE_DEBUGGING:-0}" in
     1|true|TRUE|yes|YES)
-        CHROMIUM_ARGS="$CHROMIUM_ARGS --remote-debugging-port=$((${CHROMIUM_REMOTE_DEBUGGING_PORT:-9222} + 1))"
+        set -- "$@" "--remote-debugging-port=$((${CHROMIUM_REMOTE_DEBUGGING_PORT:-9222} + 1))"
         ;;
 esac
 if [ -n "${CHROMIUM_CUSTOM_ARGS:-}" ]; then
-    CHROMIUM_ARGS="$CHROMIUM_ARGS $CHROMIUM_CUSTOM_ARGS"
+    eval "set -- \"\$@\" $CHROMIUM_CUSTOM_ARGS"
 fi
 
-eval "exec /usr/bin/chromium-browser $CHROMIUM_ARGS" &
+/usr/bin/chromium-browser "$@" >/dev/null 2>&1 &
 CHROMIUM_PID=$!
 sleep 1
 
