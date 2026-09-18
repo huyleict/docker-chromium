@@ -5,7 +5,9 @@ fcitx5 -D --replace >/dev/null 2>&1 &
 FCITX_PID=$!
 sleep 2
 
-CHROMIUM_ARGS="--no-first-run --no-default-browser-check --no-sandbox --disable-crash-reporter --disable-dev-shm-usage --ignore-gpu-blocklist --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT' --start-maximized --user-data-dir=/config/chromium-xorg-$USER"
+PROFILE_DIR=/config/chromium-xorg-$USER
+mkdir -p "$PROFILE_DIR/Crash Reports"
+CHROMIUM_ARGS="--no-first-run --no-default-browser-check --no-sandbox --disable-breakpad --disable-crash-reporter --disable-dev-shm-usage --ignore-gpu-blocklist --simulate-outdated-no-au='Tue, 31 Dec 2099 23:59:59 GMT' --start-maximized --user-data-dir=$PROFILE_DIR"
 if ! check_pid_namespace >/dev/null 2>&1; then
     CHROMIUM_ARGS="$CHROMIUM_ARGS --no-sandbox"
 fi
