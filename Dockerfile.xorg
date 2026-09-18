@@ -5,3 +5,4 @@ RUN add-pkg xorg-server xorgxrdp
 COPY rootfs-xorg/ /
 
 RUN rm -f /etc/services.d/xrdp/disabled
+RUN chmod 644 /etc/xrdp/rsakeys.ini /etc/xrdp/cert.pem /etc/xrdp/key.pem
