@@ -22,7 +22,16 @@ FCITX_ENV=$(tr '\0' '\n' < /proc/$FCITX_PID/environ 2>/dev/null |
 eval "$(printf '%s\n' "$FCITX_ENV" | sed 's/^/export /')"
 fcitx5-remote -s unikey >/dev/null 2>&1 || true
 
-set -- \
+SCREEN_SIZE=$(xrandr --current 2>/dev/null |
+    awk '/ connected/{print $3; exit}' |
+    cut -d+ -f1)
+if [ -n "$SCREEN_SIZE" ]; then
+    set -- "--window-size=$SCREEN_SIZE"
+else
+    set --
+fi
+
+set -- "$@" \
     --no-first-run \
     --no-default-browser-check \
     --no-sandbox \
