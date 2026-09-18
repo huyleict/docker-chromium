@@ -1,4 +1,4 @@
-FROM chromium-xrdp:test
+FROM chromium-xrdp:base
 
 RUN add-pkg xorg-server xorgxrdp xdotool
 
