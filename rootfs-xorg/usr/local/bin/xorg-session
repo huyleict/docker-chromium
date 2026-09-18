@@ -22,7 +22,11 @@ FCITX_ENV=$(tr '\0' '\n' < /proc/$FCITX_PID/environ 2>/dev/null |
 eval "$(printf '%s\n' "$FCITX_ENV" | sed 's/^/export /')"
 fcitx5-remote -s unikey >/dev/null 2>&1 || true
 
-set -- \
+set --
+if ! check_pid_namespace >/dev/null 2>&1; then
+    set -- --no-sandbox
+fi
+set -- "$@" \
     --no-first-run \
     --no-default-browser-check \
     --no-sandbox \
