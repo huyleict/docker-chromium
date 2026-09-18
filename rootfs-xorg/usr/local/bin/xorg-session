@@ -1,6 +1,8 @@
 #!/bin/sh
 set -eu
 
+export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
+
 SESSION_USER=${USER:-$(id -un)}
 PROFILE_DIR=/config/chromium-xorg-$SESSION_USER
 LOG_DIR=/config/log/chromium-xorg-$SESSION_USER
